@@ -6,7 +6,6 @@ package interfaz;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
