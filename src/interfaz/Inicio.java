@@ -24,7 +24,7 @@ public class Inicio extends JFrame {
         setTitle("DYAL");
         setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("InterfazBackground.png")))));
         JButton button1 = new JButton("PERFIL");
-        button1.setBounds(200, 300, 200, 100);
+        button1.setBounds(180, 300, 200, 100);
         add(button1);
 
         button1.addActionListener(new ActionListener() {
@@ -42,7 +42,7 @@ public class Inicio extends JFrame {
         );
 
         JButton button3 = new JButton("VIAJES");
-        button3.setBounds(550, 300, 200, 100);
+        button3.setBounds(530, 300, 200, 100);
         add(button3);
 
         button3.addActionListener(new ActionListener() {

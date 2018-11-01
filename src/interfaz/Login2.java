@@ -13,6 +13,8 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 public class Login2 extends JDialog {
+    
+    public static String username;
 
     private JTextField tfUsername;
     private JPasswordField pfPassword;
@@ -68,6 +70,7 @@ public class Login2 extends JDialog {
                                 "Iniciar Sesión",
                                 JOptionPane.INFORMATION_MESSAGE);
                         User.getInstance().addUser(getUsername());
+                        username = getUsername();
                         succeeded = true;
                         dispose();
                     } else {

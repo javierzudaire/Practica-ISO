@@ -3,6 +3,7 @@
  */
 package interfaz;
 
+import static interfaz.Login2.username;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,21 +36,39 @@ public class Perfil extends JFrame {
 
         text.append("\n");
 
-        JLabel label1 = new JLabel("Nombre: Javier Zudaire");
+        JLabel label1 = new JLabel("Nombre:");
         add(label1);
-        label1.setBounds(230, 240, 370, 27);
-        JLabel label2 = new JLabel("Tipo usuario: Viajero");
+        label1.setBounds(330, 270, 370, 27);
+        JLabel label2 = new JLabel("Email:");
         add(label2);
-        label2.setBounds(230, 260, 370, 27);
-        //JTextField field = new JTextField();
-        //add(field);
-        //field.setBounds(583, 355, 80, 27);
-
+        label2.setBounds(330, 310, 370, 27);
+        JLabel label3 = new JLabel("Teléfono:");
+        add(label3);
+        label3.setBounds(330, 350, 370, 27);
+        JLabel label4 = new JLabel("Cumpleaños:");
+        add(label4);
+        label4.setBounds(330, 390, 370, 27);
+        
+        String usuario = username;
+        
+        JLabel label5 = new JLabel((String) DatabaseAccess.getInstance().obtenerPerfil(usuario).get(0));
+        add(label5);
+        label5.setBounds(450, 270, 370, 27);
+        JLabel label6 = new JLabel((String) DatabaseAccess.getInstance().obtenerPerfil(usuario).get(1));
+        add(label6);
+        label6.setBounds(450, 310, 370, 27);
+        JLabel label7 = new JLabel((String) DatabaseAccess.getInstance().obtenerPerfil(usuario).get(2));
+        add(label7);
+        label7.setBounds(450, 350, 370, 27);
+        JLabel label8 = new JLabel((String) DatabaseAccess.getInstance().obtenerPerfil(usuario).get(3));
+        add(label8);
+        label8.setBounds(450, 390, 370, 27);
+     
     }
 
     public void paint(Graphics g) {
         super.paint(g);
-        g.drawRect(220, 375, 450, 30);
+        g.drawRect(220, 250, 450, 220);
 
     }
 
