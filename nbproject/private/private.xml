@@ -3,16 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/javierzudaire/Desktop/Dyal/src/principal/Main.java</file>
-            <file>file:/Users/javierzudaire/Desktop/Dyal/src/interfaz/Login1.java</file>
-            <file>file:/Users/javierzudaire/Desktop/Dyal/src/interfaz/DatabaseAccess.java</file>
-            <file>file:/Users/javierzudaire/Desktop/Dyal/src/interfaz/Login2.java</file>
-            <file>file:/Users/javierzudaire/Desktop/Dyal/src/interfaz/SignUp.java</file>
-            <file>file:/Users/javierzudaire/Desktop/Dyal/src/interfaz/Viajes.java</file>
-            <file>file:/Users/javierzudaire/Desktop/Dyal/src/interfaz/User.java</file>
-            <file>file:/Users/javierzudaire/Desktop/Dyal/test/interfaz/Login1Test.java</file>
-            <file>file:/Users/javierzudaire/Desktop/Dyal/src/interfaz/Inicio.java</file>
-            <file>file:/Users/javierzudaire/Desktop/Dyal/src/interfaz/Perfil.java</file>
+            <file>file:/home/jose/Escritorio/Practica-ISO/src/interfaz/DatabaseAccess.java</file>
+            <file>file:/home/jose/Escritorio/Practica-ISO/test/interfaz/DatabaseAccessTest.java</file>
+            <file>file:/home/jose/Escritorio/Practica-ISO/test/interfaz/Login1Test.java</file>
         </group>
     </open-files>
 </project-private>
