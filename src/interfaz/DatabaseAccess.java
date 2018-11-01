@@ -46,7 +46,7 @@ public class DatabaseAccess {
 
     public int comprobarUsuario(String user) throws SQLException {
 
-        ResultSet result = myStatement.executeQuery("SELECT EXISTS(SELECT contra FROM usuarios WHERE usuario = '" + user + "')");
+        ResultSet result = myStatement.executeQuery("SELECT EXISTS(SELECT contra FROM users WHERE usuario = '" + user + "')");
         int exists = result.getInt(1);
 
         return exists;
@@ -55,7 +55,7 @@ public class DatabaseAccess {
 
     public String obtenerContraseña(String user) throws SQLException {
 
-        ResultSet result = myStatement.executeQuery("SELECT contra FROM usuarios WHERE usuario = '" + user + "'");
+        ResultSet result = myStatement.executeQuery("SELECT contra FROM users WHERE usuario = '" + user + "'");
         if (result.next() == false) {
             return "";
         }
