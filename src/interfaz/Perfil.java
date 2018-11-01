@@ -35,11 +35,6 @@ public class Perfil extends JFrame {
 
         text.append("\n");
 
-        for (int i = 0; i < DatabaseAccess.getInstance().obtenerCochesNuevos().size(); i++) {
-            text.append(" - " + String.valueOf(DatabaseAccess.getInstance().obtenerCochesNuevos().get(i)) + '\n' + '\n');
-
-        }
-
         JLabel label1 = new JLabel("Nombre: Javier Zudaire");
         add(label1);
         label1.setBounds(230, 240, 370, 27);

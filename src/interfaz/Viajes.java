@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -65,6 +66,27 @@ public class Viajes extends JFrame {
         add(scroll);
         scroll.setBounds(135, 305, 630, 135);
         text.setEditable(false);
+        
+        for (int i = 0; i < DatabaseAccess.getInstance().obtenerViajes().size(); i++) {
+            text.append(" - " + String.valueOf(DatabaseAccess.getInstance().obtenerViajes().get(i)) + '\n' + '\n');
+
+        }
+        
+        button1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    DatabaseAccess.getInstance().addViaje(field1.getText(), field2.getText(), field3.getText());
+                     field1.setText("");
+                     field2.setText("");
+                     field3.setText("");
+                } catch (SQLException ex) {
+                    Logger.getLogger(Viajes.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        );
+
         
         setSize(900, 600);
         setLayout(null);

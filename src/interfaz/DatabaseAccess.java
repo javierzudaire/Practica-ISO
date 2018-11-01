@@ -3,7 +3,6 @@
  */
 package interfaz;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -63,25 +62,23 @@ public class DatabaseAccess {
         return password;
     }
 
-    public ArrayList obtenerCochesNuevos() {
+    public ArrayList obtenerViajes() {
 
         ArrayList list = new ArrayList();
 
         try {
-            ResultSet result = myStatement.executeQuery("SELECT marca, tipo, precio, distribuidor, matr FROM coche, c_nuevo WHERE matr=matricula");
+            ResultSet result = myStatement.executeQuery("SELECT start, end, time FROM trips");
 
-            String marca;
-            int i = 0;
-            String tipo;
-            int precio;
-            String matr;
+            String start;
+            String end;
+            String time;
+            int i=0;
 
             while (result.next()) {
-                marca = result.getString("marca");
-                tipo = result.getString("tipo");
-                precio = result.getInt("precio");
-                matr = result.getString("matr");
-                list.add(i, "Marca: " + marca + " | Tipo: " + tipo + " | Precio: " + precio + "€" + " | Matrícula: " + matr);
+                start = result.getString("start");
+                end = result.getString("end");
+                time = result.getString("time");
+                list.add(i, "Hora: " + time + " | De: " + start + " | A: " + end);
                 i++;
             }
 
@@ -94,12 +91,12 @@ public class DatabaseAccess {
 
     }
 
-    public ArrayList obtenerCochesSegundaMano() {
+    public ArrayList obtenerPerfil(String usuario) {
 
         ArrayList list = new ArrayList();
 
         try {
-            ResultSet result = myStatement.executeQuery("SELECT marca, tipo, precio, kilometraje, year_fabr, estado, matr FROM coche, c_mano WHERE matr=matricula");
+            ResultSet result = myStatement.executeQuery("SELECT usuario, email, phone, birthday FROM users WHERE usuario =" + usuario );
 
             String marca;
             String year;
@@ -128,43 +125,10 @@ public class DatabaseAccess {
 
     }
 
-    public void addCocheNuevo(String matricula, String tipo, String marca, String color, int year_fabr) throws SQLException {
+    public void addViaje(String start, String end, String hora) throws SQLException {
 
-        ResultSet result = myStatement.executeQuery("INSERT INTO c_nuevo (matricula, tipo, marca, color, year_fabr) "
-                + "VALUES ( '" + matricula + "', '" + tipo + "', '" + marca + "', '" + color + "', " + year_fabr + ")");
-    }
-
-    public ArrayList obtenerCochesDisponibles(String tipo1) throws IOException {
-
-        ArrayList list = new ArrayList();
-        tipo1 = tipo1.toLowerCase();
-
-        try {
-            ResultSet result = myStatement.executeQuery("SELECT alquiler_disponible.marca, alquiler_disponible.color, tipo, c_alquiler.precio, c_alquiler.matr FROM alquiler_disponible, coche, c_alquiler WHERE coche.matricula = alquiler_disponible.matricula AND alquiler_disponible.matricula = c_alquiler.matr AND tipo = '" + tipo1 + "'");
-
-            String marca;
-            String tipo;
-            String color;
-            int precio;
-            String matr;
-            int i = 0;
-            while (result.next()) {
-                marca = result.getString("marca");
-                tipo = result.getString("tipo");
-                color = result.getString("color");
-                precio = result.getInt("precio");
-                matr = result.getString("matr");
-                list.add(i, "Marca: " + marca + " | Tipo: " + tipo + " | Color: " + color + " | Precio : " + precio + " €/día" + " | Matrícula : " + matr);
-                i++;
-            }
-
-            //conexion.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(DatabaseAccess.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return list;
-
+        myStatement.execute("INSERT INTO trips (start, end, time) "
+                + "VALUES ( '" + start + "', '" + end + "', '" + hora + "')");
     }
 
     public void addAlquiler(String recogida, String devolucion, String user, String matr) throws SQLException {
