@@ -59,6 +59,8 @@ public class Login2 extends JDialog {
         panel.setBorder(new LineBorder(Color.GRAY));
 
         btnLogin = new JButton("Iniciar Sesión");
+        
+        getRootPane().setDefaultButton(btnLogin);
 
         btnLogin.addActionListener(new ActionListener() {
 

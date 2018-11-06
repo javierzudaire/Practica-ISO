@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -38,24 +39,30 @@ public class Viajes extends JFrame {
         label2.setBounds(110, 510, 100, 27);
         JLabel label3 = new JLabel("Inicio:");
         add(label3);
-        label3.setBounds(260, 510, 150, 27);
+        label3.setBounds(240, 510, 150, 27);
         JLabel label4 = new JLabel("Final:");
         add(label4);
-        label4.setBounds(430, 510, 150, 27);
+        label4.setBounds(410, 510, 150, 27);
         JLabel label5 = new JLabel("Hora:");
         add(label5);
-        label5.setBounds(600, 510, 100, 27);
+        label5.setBounds(580, 510, 100, 27);
         JTextField field1 = new JTextField("");
         add(field1);
-        field1.setBounds(300, 510, 100, 27);
+        field1.setBounds(280, 510, 100, 27);
         JTextField field2 = new JTextField("");
         add(field2);
-        field2.setBounds(470, 510, 100, 27);
-        JTextField field3 = new JTextField("");
+        field2.setBounds(450, 510, 100, 27);
+        String[] hora1 = { "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21"};
+        JComboBox field3 = new JComboBox(hora1);
         add(field3);
-        field3.setBounds(640, 510, 80, 27);
+        field3.setBounds(620, 510, 70, 27);
+        String[] hora2 = { "00", "10", "20", "30", "40", "50"};
+        JComboBox field4 = new JComboBox(hora2);
+        add(field4);
+        field4.setBounds(680, 510, 70, 27);
+        
         JButton button1 = new JButton("✓");
-        button1.setBounds(750, 502, 40, 40);
+        button1.setBounds(760, 502, 40, 40);
         add(button1);
         
         JTextArea text = new JTextArea(); 
@@ -71,14 +78,24 @@ public class Viajes extends JFrame {
 
         }
         
+        getRootPane().setDefaultButton(button1);
+        
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    DatabaseAccess.getInstance().addViaje(field1.getText(), field2.getText(), field3.getText());
+                    DatabaseAccess.getInstance().addViaje(field1.getText(), field2.getText(), (String) field3.getSelectedItem() + ":" + field4.getSelectedItem());
+                     
                      field1.setText("");
                      field2.setText("");
-                     field3.setText("");
+                     dispose();
+                     Viajes window = null;
+                try {
+                    window = new Viajes();
+                } catch (IOException ex) {
+                    Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                window.setVisible(true);
                 } catch (SQLException ex) {
                     Logger.getLogger(Viajes.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -86,7 +103,7 @@ public class Viajes extends JFrame {
         }
         );
 
-        
+     
         setSize(900, 600);
         setLayout(null);
         setResizable(false);
