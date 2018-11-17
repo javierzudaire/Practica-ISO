@@ -67,18 +67,20 @@ public class DatabaseAccess {
         ArrayList list = new ArrayList();
 
         try {
-            ResultSet result = myStatement.executeQuery("SELECT start, end, time FROM trips");
+            ResultSet result = myStatement.executeQuery("SELECT id, start, end, time FROM trips");
 
+            int id;
             String start;
             String end;
             String time;
-            int i=0;
+            int i = 0;
 
             while (result.next()) {
+                id = result.getInt("id");
                 start = result.getString("start");
                 end = result.getString("end");
                 time = result.getString("time");
-                list.add(i, "Hora: " + time + " | De: " + start + " | A: " + end);
+                list.add(i, id + " | Hora: " + time + " | De: " + start + " | A: " + end);
                 i++;
             }
 
@@ -96,7 +98,7 @@ public class DatabaseAccess {
         ArrayList list = new ArrayList();
 
         try {
-            ResultSet result = myStatement.executeQuery("SELECT usuario, email, phone, birthday FROM users WHERE usuario ='" + usuario + "'" );
+            ResultSet result = myStatement.executeQuery("SELECT usuario, email, phone, birthday FROM users WHERE usuario ='" + usuario + "'");
 
             String nombre;
             String email;
@@ -111,7 +113,7 @@ public class DatabaseAccess {
             list.add(1, email);
             list.add(2, phone);
             list.add(3, birthday);
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseAccess.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -124,6 +126,37 @@ public class DatabaseAccess {
 
         myStatement.execute("INSERT INTO trips (start, end, time) "
                 + "VALUES ( '" + start + "', '" + end + "', '" + hora + "')");
+    }
+
+    public ArrayList obtenerViajesFiltrados(String universidad) {
+
+        ArrayList list = new ArrayList();
+
+        try {
+            ResultSet result = myStatement.executeQuery("SELECT id, start, end, time FROM trips WHERE start='" + universidad + "' OR end= '" + universidad + "'");
+
+            int id;
+            String start;
+            String end;
+            String time;
+            int i = 0;
+
+            while (result.next()) {
+                id = result.getInt("id");
+                start = result.getString("start");
+                end = result.getString("end");
+                time = result.getString("time");
+                list.add(i, id + " | Hora: " + time + " | De: " + start + " | A: " + end);
+                i++;
+            }
+
+            //conexion.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseAccess.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return list;
+
     }
 
 }

@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -31,79 +30,103 @@ public class Viajes extends JFrame {
         setTitle("DYAL");
         setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("InterfazBackground.png")))));
 
+        JButton nuevoViaje = new JButton("CREAR NUEVO VIAJE");
+        nuevoViaje.setBounds(690, 40, 150, 40);
+        add(nuevoViaje);
+
         JLabel label1 = new JLabel("VIAJES DISPONIBLES");
         add(label1);
         label1.setBounds(100, 270, 200, 27);
-        JLabel label2 = new JLabel("CREAR VIAJE");
+        JLabel label2 = new JLabel("RESERVAR VIAJE");
         add(label2);
-        label2.setBounds(110, 510, 100, 27);
-        JLabel label3 = new JLabel("Inicio:");
+        label2.setBounds(205, 510, 100, 27);
+        JLabel label3 = new JLabel("Introduzca el número de viaje:");
         add(label3);
-        label3.setBounds(240, 510, 150, 27);
-        JLabel label4 = new JLabel("Final:");
-        add(label4);
-        label4.setBounds(410, 510, 150, 27);
-        JLabel label5 = new JLabel("Hora:");
-        add(label5);
-        label5.setBounds(580, 510, 100, 27);
+        label3.setBounds(345, 510, 200, 27);
         JTextField field1 = new JTextField("");
         add(field1);
-        field1.setBounds(280, 510, 100, 27);
-        JTextField field2 = new JTextField("");
-        add(field2);
-        field2.setBounds(450, 510, 100, 27);
-        String[] hora1 = { "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21"};
-        JComboBox field3 = new JComboBox(hora1);
-        add(field3);
-        field3.setBounds(620, 510, 70, 27);
-        String[] hora2 = { "00", "10", "20", "30", "40", "50"};
-        JComboBox field4 = new JComboBox(hora2);
-        add(field4);
-        field4.setBounds(680, 510, 70, 27);
-        
-        JButton button1 = new JButton("✓");
-        button1.setBounds(760, 502, 40, 40);
+        field1.setBounds(550, 510, 50, 27);
+
+        String[] universidades = {"Todas", "Universidad CEU San Pablo", "Universidad Francisco de Vitoria", "Universidad Complutense", "Universidad Autónoma", "Universidad Europea"};
+        JComboBox filtros = new JComboBox(universidades);
+        add(filtros);
+        filtros.setBounds(470, 270, 250, 30);
+
+        JButton filtrar = new JButton("FILTRAR");
+        filtrar.setBounds(710, 270, 90, 30);
+        add(filtrar);
+
+        JButton button1 = new JButton("RESERVAR");
+        button1.setBounds(630, 502, 110, 40);
         add(button1);
-        
-        JTextArea text = new JTextArea(); 
+
+        JTextArea text = new JTextArea();
         add(text);
         text.setBounds(135, 305, 630, 135);
         JScrollPane scroll = new JScrollPane(text);
         add(scroll);
         scroll.setBounds(135, 305, 630, 135);
         text.setEditable(false);
-        
+
         for (int i = 0; i < DatabaseAccess.getInstance().obtenerViajes().size(); i++) {
-            text.append(" - " + String.valueOf(DatabaseAccess.getInstance().obtenerViajes().get(i)) + '\n' + '\n');
+            text.append(" | " + String.valueOf(DatabaseAccess.getInstance().obtenerViajes().get(i)) + '\n' + '\n');
 
         }
-        
+
         getRootPane().setDefaultButton(button1);
-        
+
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    DatabaseAccess.getInstance().addViaje(field1.getText(), field2.getText(), (String) field3.getSelectedItem() + ":" + field4.getSelectedItem());
-                     
-                     field1.setText("");
-                     field2.setText("");
-                     dispose();
-                     Viajes window = null;
+                field1.setText("");
+                dispose();
+                Viajes window = null;
                 try {
                     window = new Viajes();
                 } catch (IOException ex) {
                     Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 window.setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Viajes.class.getName()).log(Level.SEVERE, null, ex);
-                }
             }
         }
         );
 
-     
+        filtrar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                text.setText("");
+                if (filtros.getSelectedItem() == "Todas") {
+                    for (int i = 0; i < DatabaseAccess.getInstance().obtenerViajes().size(); i++) {
+                        text.append(" | " + String.valueOf(DatabaseAccess.getInstance().obtenerViajes().get(i)) + '\n' + '\n');
+
+                    }
+
+                } else {
+                    for (int i = 0; i < DatabaseAccess.getInstance().obtenerViajesFiltrados((String) filtros.getSelectedItem()).size(); i++) {
+                        text.append(" | " + String.valueOf(DatabaseAccess.getInstance().obtenerViajesFiltrados((String) filtros.getSelectedItem()).get(i)) + '\n' + '\n');
+
+                    }
+                }
+
+            }
+        }
+        );
+
+        nuevoViaje.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                CrearViaje window = null;
+                try {
+                    window = new CrearViaje();
+                } catch (IOException ex) {
+                    Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                window.setVisible(true);
+            }
+        }
+        );
+
         setSize(900, 600);
         setLayout(null);
         setResizable(false);
@@ -114,7 +137,7 @@ public class Viajes extends JFrame {
         super.paint(g);
         g.drawRect(70, 275, 760, 210);
         g.drawRect(75, 280, 750, 200);
-        g.drawRect(93, 523, 110, 40);
+        g.drawRect(192, 523, 123, 40);
     }
 
 }
