@@ -78,11 +78,10 @@ public class Viajes extends JFrame {
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                field1.setText("");
                 dispose();
-                Viajes window = null;
+                Reserva window = null;
                 try {
-                    window = new Viajes();
+                    window = new Reserva();
                 } catch (IOException ex) {
                     Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
                 }

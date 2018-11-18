@@ -25,9 +25,7 @@ public class DatabaseAccess {
             mysqlURL = "jdbc:sqlite:database.db";
             conexion = DriverManager.getConnection(mysqlURL);
             myStatement = conexion.createStatement();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DatabaseAccess.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DatabaseAccess.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -156,6 +154,13 @@ public class DatabaseAccess {
         }
 
         return list;
+
+    }
+
+    public void crearUsuario(String username, String password, String email, String birthday, String phone) throws SQLException {
+
+        myStatement.execute("INSERT INTO users(usuario, contra, email, birthday, phone) VALUES ('" + username + "', '"
+                + password + "', '" + email + "', '" + birthday + "', '" + phone + "')");
 
     }
 
