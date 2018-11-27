@@ -214,19 +214,50 @@ public class Login2 extends JDialog {
 
             public void actionPerformed(ActionEvent e) {
 
-                String user = tfUsernameSignUp.getText();
-                String password = tfPasswordSignUp1.getText();
-                String email = tfEmailSignUp.getText();
-                String birthday = tfBirthdaySignUp.getText();
-                String phone = tfPhoneSignUp.getText();
-                try {
-                    DatabaseAccess.getInstance().crearUsuario(user, password, email, birthday, phone);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Login2.class.getName()).log(Level.SEVERE, null, ex);
+                if (!tfPasswordSignUp1.getText().equals(tfPasswordSignUp2.getText())) {
+
+                    JOptionPane.showMessageDialog(Login2.this,
+                            "Las contraseñas no coinciden",
+                            "Crear Cuenta",
+                            JOptionPane.ERROR_MESSAGE);
+
+                    tfPasswordSignUp1.setText("");
+                    tfPasswordSignUp2.setText("");
+
+                } else {
+
+                    String user = tfUsernameSignUp.getText();
+                    String password = tfPasswordSignUp1.getText();
+                    String email = tfEmailSignUp.getText();
+                    String birthday = tfBirthdaySignUp.getText();
+                    String phone = tfPhoneSignUp.getText();
+
+                    try {
+                        if (DatabaseAccess.getInstance().usuarioNoRepetido(user).equals("0") && DatabaseAccess.getInstance().emailNoRepetido(email).equals("0")) {
+                            try {
+                                DatabaseAccess.getInstance().crearUsuario(user, password, email, birthday, phone);
+                            } catch (SQLException ex) {
+                                Logger.getLogger(Login2.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            username = tfUsernameSignUp.getText();
+                            succeeded = true;
+                            dispose();
+                        } else {
+
+                            JOptionPane.showMessageDialog(Login2.this,
+                                    "El nombre de usuario o email ya Existe. Por favor, elige otro distinto  ",
+                                    "Crear Cuenta",
+                                    JOptionPane.ERROR_MESSAGE);
+
+                            tfPasswordSignUp1.setText("");
+                            tfPasswordSignUp2.setText("");
+
+                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Login2.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
                 }
-                username = tfUsernameSignUp.getText();
-                succeeded = true;
-                dispose();
 
             }
         });

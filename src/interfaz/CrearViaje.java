@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class CrearViaje extends JFrame {
@@ -65,22 +66,31 @@ public class CrearViaje extends JFrame {
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    DatabaseAccess.getInstance().addViaje(field1.getText(), field2.getText(), (String) field3.getSelectedItem() + ":" + field4.getSelectedItem());
+                if (field1.getText().equals("") || field1.getText().equals("")) {
+                    JOptionPane.showMessageDialog(CrearViaje.this,
+                            "Rellene todos los campos",
+                            "Crear Vieaje",
+                            JOptionPane.ERROR_MESSAGE);
+                } else {
 
-                    field1.setText("");
-                    field2.setText("");
-                    dispose();
-                    Viajes window = null;
                     try {
-                        window = new Viajes();
-                    } catch (IOException ex) {
-                        Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+                        DatabaseAccess.getInstance().addViaje(field1.getText(), field2.getText(), (String) field3.getSelectedItem() + ":" + field4.getSelectedItem());
+
+                        field1.setText("");
+                        field2.setText("");
+                        dispose();
+                        Viajes window = null;
+                        try {
+                            window = new Viajes();
+                        } catch (IOException ex) {
+                            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        window.setVisible(true);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Viajes.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    window.setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Viajes.class.getName()).log(Level.SEVERE, null, ex);
                 }
+
             }
         }
         );

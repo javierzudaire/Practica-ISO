@@ -164,4 +164,22 @@ public class DatabaseAccess {
 
     }
 
+    public String usuarioNoRepetido(String usuario) throws SQLException {
+
+        ResultSet result = myStatement.executeQuery("SELECT EXISTS(SELECT * FROM users WHERE usuario='" + usuario + "')");
+
+        System.out.println(result.getString(1));
+
+        return result.getString(1);
+
+    }
+
+    public String emailNoRepetido(String email) throws SQLException {
+
+        ResultSet result = myStatement.executeQuery("SELECT EXISTS(SELECT * FROM users WHERE email='" + email + "')");
+
+        return result.getString(1);
+
+    }
+
 }
