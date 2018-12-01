@@ -22,9 +22,6 @@ import javax.swing.JTextField;
 
 public class Viajes extends JFrame {
 
-    String recogida;
-    String devolucion;
-
     public Viajes() throws IOException {
 
         setTitle("DYAL");

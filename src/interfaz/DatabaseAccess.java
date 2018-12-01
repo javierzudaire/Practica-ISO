@@ -182,4 +182,34 @@ public class DatabaseAccess {
 
     }
 
+    public ArrayList obtenerMisReservas(String usuario) {
+
+        ArrayList list = new ArrayList();
+
+        try {
+            ResultSet result = myStatement.executeQuery("SELECT start, end, time FROM MyReservations WHERE usuario ='" + usuario + "'");
+
+            int id;
+            String start;
+            String end;
+            String time;
+            int i = 0;
+
+            while (result.next()) {
+                start = result.getString("start");
+                end = result.getString("end");
+                time = result.getString("time");
+                list.add(i, " Hora: " + time + " | De: " + start + " | A: " + end);
+                i++;
+            }
+
+            //conexion.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseAccess.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return list;
+
+    }
+
 }
