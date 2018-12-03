@@ -210,4 +210,15 @@ public class DatabaseAccess {
 
     }
 
+    public void crearReserva(String username, String trip_id) throws SQLException {
+
+        ResultSet result = myStatement.executeQuery("SELECT id FROM users WHERE usuario='" + username + "'");
+
+        String user_id = result.getString(1);
+
+        myStatement.execute("INSERT INTO reservations(user_id, trip_id) VALUES ('" + user_id + "', '"
+                + trip_id + "')");
+
+    }
+
 }
