@@ -1,6 +1,4 @@
-/*
- * Javier Zudaire
- */
+
 package principal;
 
 import interfaz.Inicio;

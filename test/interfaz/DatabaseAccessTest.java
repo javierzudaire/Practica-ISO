@@ -5,6 +5,7 @@
  */
 package interfaz;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -13,10 +14,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author jose
- */
+
 public class DatabaseAccessTest {
     
     public DatabaseAccessTest() {
@@ -71,13 +69,13 @@ public class DatabaseAccessTest {
     /**
      * Test of obtenerViajes method, of class DatabaseAccess.
      */
-   /* @Test
+   @Test
     public void testObtenerViajes() {
         
         DatabaseAccess instance = new DatabaseAccess();
-        ArrayList expResult = null;
+        String expResult =  "1 | Hora: 8:00 | De: Calle Arzobispo Morcillo | A: Universidad CEU San Pablo";
         ArrayList result = instance.obtenerViajes();
-        assertEquals(expResult, result);
+        assertEquals(expResult, result.get(0));
         
     }
 
@@ -106,18 +104,24 @@ public class DatabaseAccessTest {
        
     }
     
-
-    /**
-     * Test of addViaje method, of class DatabaseAccess.
-     */
-    //@Test
-    /*public void testAddViaje() throws Exception {
-        
-        String start = "";
-        String end = "Europea";
-        String hora = "8:00AM";
+ @Test
+    public void TestFiltroViaje() {
         DatabaseAccess instance = new DatabaseAccess();
-        instance.addViaje(start, end, hora);
+        
+        assertEquals(1,instance.obtenerViajesFiltrados("Universidad Europea").size());
     }
-    */
+    
+    @Test 
+    public void usuarioNoRepetido() throws SQLException{
+         DatabaseAccess instance = new DatabaseAccess();
+         instance.usuarioNoRepetido("jose");
 }
+     @Test 
+    public void emailNoRepetido() throws SQLException{
+         DatabaseAccess instance = new DatabaseAccess();
+         instance.emailNoRepetido("jose.molina@gmail.com");
+}
+    
+    
+}
+ 

@@ -1,7 +1,7 @@
-/*
- * Javier Zudaire
- */
+
 package interfaz;
+
+
 
 import java.util.ArrayList;
 

@@ -1,6 +1,4 @@
-/*
- * Javier Zudaire
- */
+
 package interfaz;
 
 import static interfaz.Login2.username;

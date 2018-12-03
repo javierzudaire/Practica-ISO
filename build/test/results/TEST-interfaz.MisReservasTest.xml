@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="DESKTOP-4N6OVBJ" name="interfaz.Login1Test" skipped="0" tests="4" time="0.346" timestamp="2018-12-03T18:57:41">
+<testsuite errors="0" failures="0" hostname="DESKTOP-4N6OVBJ" name="interfaz.MisReservasTest" skipped="0" tests="3" time="0.296" timestamp="2018-12-03T18:57:42">
   <properties>
     <property name="netbeans.autoupdate.country" value="ES" />
     <property name="nb.wait.for.caches" value="true" />
@@ -37,7 +37,7 @@
     <property name="user.name" value="jose_" />
     <property name="copylibs.rebase" value="true" />
     <property name="libs.swing-layout.maven-pom" value="" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner interfaz.Login1Test skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\jose_\Documents\Repositorios\Practica-ISO\build\test\results\TEST-interfaz.Login1Test.xml crashfile=C:\Users\jose_\Documents\Repositorios\Practica-ISO\build\junitvmwatcher7932691313773528178.properties propsfile=C:\Users\jose_\Documents\Repositorios\Practica-ISO\build\junit1447020142067971874.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner interfaz.MisReservasTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\jose_\Documents\Repositorios\Practica-ISO\build\test\results\TEST-interfaz.MisReservasTest.xml crashfile=C:\Users\jose_\Documents\Repositorios\Practica-ISO\build\junitvmwatcher8727162272916922958.properties propsfile=C:\Users\jose_\Documents\Repositorios\Practica-ISO\build\junit3777941317674615008.properties" />
     <property name="build.classes.dir" value="build/classes" />
     <property name="netbeans.accept_license_class" value="org.netbeans.license.AcceptLicense" />
     <property name="build.sysclasspath" value="ignore" />
@@ -318,10 +318,9 @@
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
     <property name="file.reference.sqlite-jdbc-3.21.0.jar" value="sqlite-jdbc-3.21.0.jar" />
   </properties>
-  <testcase classname="interfaz.Login1Test" name="testUsuarioIncorrectoContraExiste" time="0.257" />
-  <testcase classname="interfaz.Login1Test" name="testNoUsuarioNoContra" time="0.0" />
-  <testcase classname="interfaz.Login1Test" name="testUsuarioCorrecto" time="0.001" />
-  <testcase classname="interfaz.Login1Test" name="testUsuarioCorrectoContraNo" time="0.0" />
+  <testcase classname="interfaz.MisReservasTest" name="ReservasEsperadas" time="0.226" />
+  <testcase classname="interfaz.MisReservasTest" name="SegundaReserva" time="0.001" />
+  <testcase classname="interfaz.MisReservasTest" name="ReservasNoEsperadas" time="0.001" />
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

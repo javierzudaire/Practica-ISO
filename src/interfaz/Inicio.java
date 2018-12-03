@@ -1,6 +1,4 @@
-/*
- * Javier Zudaire
- */
+
 package interfaz;
 
 import java.awt.event.ActionEvent;
