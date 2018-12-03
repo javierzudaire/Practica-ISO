@@ -66,18 +66,22 @@ public class CrearViaje extends JFrame {
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (field1.getText().equals("") || field1.getText().equals("")) {
+
+                String start = field1.getText();
+                String end = field2.getText();
+
+                if (start.equals("") || end.equals("") || start.matches("[0-9/[$-/:-?{-~!\"^_`\\[\\]]/]+") || end.matches("[0-9/[$-/:-?{-~!\"^_`\\[\\]]/]+")) {
                     JOptionPane.showMessageDialog(CrearViaje.this,
                             "Rellene todos los campos",
-                            "Crear Vieaje",
+                            "Crear Viaje",
                             JOptionPane.ERROR_MESSAGE);
+                    field1.setText("");
+                    field2.setText("");
                 } else {
 
                     try {
                         DatabaseAccess.getInstance().addViaje(field1.getText(), field2.getText(), (String) field3.getSelectedItem() + ":" + field4.getSelectedItem());
 
-                        field1.setText("");
-                        field2.setText("");
                         dispose();
                         Viajes window = null;
                         try {
@@ -90,6 +94,19 @@ public class CrearViaje extends JFrame {
                         Logger.getLogger(Viajes.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
+
+            }
+        }
+        );
+
+        JButton back = new JButton("< VOLVER");
+        back.setBounds(350, 482, 200, 50);
+        add(back);
+
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
 
             }
         }

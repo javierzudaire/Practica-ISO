@@ -3,11 +3,13 @@
  */
 package interfaz;
 
+import static interfaz.Login2.username;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -16,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -65,6 +68,19 @@ public class Viajes extends JFrame {
         scroll.setBounds(135, 305, 630, 135);
         text.setEditable(false);
 
+        JButton back = new JButton(" < ");
+        back.setBounds(30, 30, 50, 50);
+        add(back);
+
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+
+            }
+        }
+        );
+
         for (int i = 0; i < DatabaseAccess.getInstance().obtenerViajes().size(); i++) {
             text.append(" | " + String.valueOf(DatabaseAccess.getInstance().obtenerViajes().get(i)) + '\n' + '\n');
 
@@ -75,14 +91,31 @@ public class Viajes extends JFrame {
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose();
-                Reserva window = null;
-                try {
-                    window = new Reserva();
-                } catch (IOException ex) {
-                    Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+
+                String trip_id = field1.getText();
+
+                if (trip_id.equals("") || trip_id.matches("[a-zA-Z/[$-/:-?{-~!\"^_`\\[\\]]/]+")) {
+                    JOptionPane.showMessageDialog(Viajes.this,
+                            "Número incorrecto",
+                            "Reserva",
+                            JOptionPane.ERROR_MESSAGE);
+                    field1.setText("");
+                } else {
+                    dispose();
+                    Reserva window = null;
+                    String usuario = username;
+                    try {
+                        DatabaseAccess.getInstance().crearReserva(usuario, field1.getText());
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Viajes.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    try {
+                        window = new Reserva();
+                    } catch (IOException ex) {
+                        Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    window.setVisible(true);
                 }
-                window.setVisible(true);
             }
         }
         );
@@ -111,10 +144,10 @@ public class Viajes extends JFrame {
         nuevoViaje.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose();
                 CrearViaje window = null;
                 try {
                     window = new CrearViaje();
+                    dispose();
                 } catch (IOException ex) {
                     Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
                 }
